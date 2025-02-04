@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить ответ</title>
+</head>
+<body>
+    <h1>Добавить ответ к вопросу</h1>
+    <p><strong>{{ question.text }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+    <a href="{% url 'question_detail' question.id %}">Назад</a>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вопрос</title>
+</head>
+<body>
+<h1>{{ question.text }}</h1>
+<p>Дата создания: {{ question.created_at|date:"d.m.Y H:i" }}</p>
+
+<h2>Ответы:</h2>
+<ul>
+    {% for answer in answers %}
+    <li>
+        {{ answer.text }} (Уверенность: {{ answer.get_confidence_display }})
+        {% if answer.source %}
+        <br><a href="{{ answer.source }}" target="_blank">Источник</a>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>Ответов пока нет</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_answer' question.id %}">Добавить ответ</a>
+<br>
+<a href="{% url 'question_list' %}">Назад к списку</a>
+</body>
+</html>
