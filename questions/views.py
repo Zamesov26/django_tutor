@@ -18,16 +18,21 @@ def add_question(request):
         form = QuestionForm()
     return render(request, "add_question.html", {"form": form})
 
+
 def question_list(request):
     """Выводит только список вопросов (без ответов)"""
     questions = Question.objects.order_by("-created_at")
     return render(request, "question_list.html", {"questions": questions})
 
+
 def question_detail(request, question_id):
     """Просмотр конкретного вопроса с его ответами"""
     question = get_object_or_404(Question, id=question_id)
     answers = question.answers.order_by("-created_at")
-    return render(request, "question_detail.html", {"question": question, "answers": answers})
+    return render(
+        request, "question_detail.html", {"question": question, "answers": answers}
+    )
+
 
 def add_answer(request, question_id):
     """Форма для добавления ответа к вопросу"""
@@ -43,9 +48,8 @@ def add_answer(request, question_id):
         form = AnswerForm()
     return render(request, "add_answer.html", {"form": form, "question": question})
 
+
 def send_sound(request, question_id):
     """Создаёт задачу в Celery для воспроизведения звука"""
-    play_sound_task.apply_async(
-        args=[1]
-    )  # Запускаем задачу в Celery
+    play_sound_task.apply_async(args=[1])  # Запускаем задачу в Celery
     return redirect("question_list")

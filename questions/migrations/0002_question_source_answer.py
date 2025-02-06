@@ -7,24 +7,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('questions', '0001_initial'),
+        ("questions", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='question',
-            name='source',
-            field=models.CharField(blank=True, max_length=128, null=True, verbose_name='Источник'),
+            model_name="question",
+            name="source",
+            field=models.CharField(
+                blank=True, max_length=128, null=True, verbose_name="Источник"
+            ),
         ),
         migrations.CreateModel(
-            name='Answer',
+            name="Answer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(blank=True, null=True, verbose_name='Текст ответа')),
-                ('source', models.CharField(blank=True, max_length=128, null=True, verbose_name='Источник')),
-                ('confidence', models.IntegerField(choices=[(1, 'Низкая'), (2, 'Средняя'), (3, 'Высокая')], default=1, verbose_name='Уверенность')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='questions.question')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "text",
+                    models.TextField(
+                        blank=True, null=True, verbose_name="Текст ответа"
+                    ),
+                ),
+                (
+                    "source",
+                    models.CharField(
+                        blank=True, max_length=128, null=True, verbose_name="Источник"
+                    ),
+                ),
+                (
+                    "confidence",
+                    models.IntegerField(
+                        choices=[(1, "Низкая"), (2, "Средняя"), (3, "Высокая")],
+                        default=1,
+                        verbose_name="Уверенность",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "question",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="answers",
+                        to="questions.question",
+                    ),
+                ),
             ],
         ),
     ]

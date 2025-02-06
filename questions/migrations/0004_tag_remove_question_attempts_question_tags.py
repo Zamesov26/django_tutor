@@ -6,24 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('questions', '0003_question_attempts'),
+        ("questions", "0003_question_attempts"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, unique=True, verbose_name='Название')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=50, unique=True, verbose_name="Название"
+                    ),
+                ),
             ],
         ),
         migrations.RemoveField(
-            model_name='question',
-            name='attempts',
+            model_name="question",
+            name="attempts",
         ),
         migrations.AddField(
-            model_name='question',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='questions', to='questions.tag'),
+            model_name="question",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, related_name="questions", to="questions.tag"
+            ),
         ),
     ]
