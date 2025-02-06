@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Список вопросов</h1>
-<a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:"," }}{% endif %}">
+<a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:" ," }}{% endif %}">
 ➕ Добавить вопрос
 </a>
 
@@ -20,9 +20,15 @@
                {% if tag.id in tags_selected %}checked{% endif %}
                onchange="this.form.submit()">
         {{ tag.name }}
-    </label><br>
+    </label>
     {% endfor %}
+    <br>
     <a href="{% url 'question_list' %}">Сбросить</a>
+</form>
+
+<form method="get">
+    <input type="hidden" name="no_tags" value="1">
+    <button type="submit" {% if show_no_tags %}disabled{% endif %}>Показать вопросы без тегов</button>
 </form>
 
 <hr>

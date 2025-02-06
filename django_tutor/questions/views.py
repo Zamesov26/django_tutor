@@ -48,8 +48,11 @@ def question_list(request):
     """Выводит список вопросов с фильтрацией по тегам"""
     tags_selected = request.GET.getlist("tags")
     questions = Question.objects.order_by("-created_at")
+    show_no_tags = request.GET.get("no_tags")
 
-    if tags_selected:
+    if show_no_tags:
+        questions = questions.filter(tags__isnull=True)
+    elif tags_selected:
         for tag_id in tags_selected:
             questions = questions.filter(tags__id=tag_id)
 
@@ -62,6 +65,7 @@ def question_list(request):
             "questions": questions,
             "tags": tags,
             "tags_selected": list(map(int, tags_selected)),
+            "show_no_tags": show_no_tags,
         },
     )
 
