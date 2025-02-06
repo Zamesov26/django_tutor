@@ -1,3 +1,5 @@
+from random import randint
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 from questions.tasks import play_sound_task
@@ -43,5 +45,7 @@ def add_answer(request, question_id):
 
 def send_sound(request, question_id):
     """Создаёт задачу в Celery для воспроизведения звука"""
-    play_sound_task.delay()  # Запускаем задачу в Celery
+    play_sound_task.apply_async(
+        args=[1]
+    )  # Запускаем задачу в Celery
     return redirect("question_list")
