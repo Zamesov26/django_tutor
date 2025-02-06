@@ -3,9 +3,22 @@ from .models import Question, Answer, Tag
 
 
 class QuestionForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple, required=False
+    )
+    new_tags = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Введите новые теги через запятую",
+            }
+        ),
+    )
+
     class Meta:
         model = Question
-        fields = ["text", "source"]
+        fields = ["text", "source", "tags", "new_tags"]
         widgets = {
             "text": forms.Textarea(
                 attrs={

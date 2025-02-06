@@ -22,6 +22,16 @@
     {% endfor %}
 </ul>
 
+<h2>Теги:</h2>
+<ul>
+    {% for tag in question.tags.all %}
+        <li>{{ tag.name }}</li>
+    {% empty %}
+        <li>Нет тегов</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'edit_question' question.id %}">✏️ Редактировать</a>
 <a href="{% url 'add_answer' question.id %}">Добавить ответ</a>
 <br>
 <a href="{% url 'question_list' %}">Назад к списку</a>

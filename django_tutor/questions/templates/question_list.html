@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список вопросов</title>
+</head>
+<body>
+<h1>Список вопросов</h1>
+<a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:"," }}{% endif %}">
+➕ Добавить вопрос
+</a>
+
+
+<!-- Форма фильтрации -->
+<form method="get">
+    <h3>Фильтр по тегам:</h3>
+    {% for tag in tags %}
+    <label>
+        <input type="checkbox" name="tags" value="{{ tag.id }}"
+               {% if tag.id in tags_selected %}checked{% endif %}
+               onchange="this.form.submit()">
+        {{ tag.name }}
+    </label><br>
+    {% endfor %}
+    <a href="{% url 'question_list' %}">Сбросить</a>
+</form>
+
+<hr>
+
+<ul>
+    {% for question in questions %}
+    <li>
+        <a href="{% url 'question_detail' question.id %}">{{ question.text }}</a>
+        <p>
+            {% for tag in question.tags.all %}
+            <span>{{ tag.name }}</span>
+            {% empty %}
+            Нет тегов
+            {% endfor %}
+        </p>
+    </li>
+    {% empty %}
+    <li>Пока вопросов нет</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

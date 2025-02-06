@@ -5,7 +5,7 @@ from random import randint
 from celery import shared_task, current_task
 from django.db import models
 
-from questions.models import Question
+from django_tutor.questions.models import Question
 
 
 def retry_on_failure(model):
