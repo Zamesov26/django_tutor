@@ -6,10 +6,13 @@
 </head>
 <body>
 <h1>Список вопросов</h1>
-<a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:" ," }}{% endif %}">
+{% if user.is_authenticated %}
+<a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:" ," }}{% endif %}"">
 ➕ Добавить вопрос
 </a>
-
+{% else %}
+<p><a href="{% url 'login' %}">Войдите</a>, чтобы добавить вопрос.</p>
+{% endif %}
 
 <!-- Форма фильтрации -->
 <form method="get">
@@ -22,6 +25,13 @@
         {{ tag.name }}
     </label>
     {% endfor %}
+    <br>
+    {% if user.is_authenticated %}
+    <input type="checkbox" name="my_questions" value="1"
+           {% if show_only_mine %}checked{% endif %}
+           onchange="this.form.submit()">
+    <label>Показать только мои вопросы</label>
+    {% endif %}
     <br>
     <a href="{% url 'question_list' %}">Сбросить</a>
 </form>

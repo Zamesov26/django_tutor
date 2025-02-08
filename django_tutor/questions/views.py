@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AnswerForm, QuestionForm, TagForm
 from .models import Question, Tag
 
-
+@login_required(login_url="/login/")
 def add_question(request):
     """Форма для добавления нового вопроса"""
     selected_tags = request.GET.get("tags", "")
@@ -13,6 +14,7 @@ def add_question(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)  # Сохраняем вопрос без тегов
+            question.author = request.user
             question.save()
             form.save_m2m()  # Сохраняем выбранные теги
 
@@ -29,6 +31,7 @@ def add_question(request):
     return render(request, "add_question.html", {"form": form})
 
 
+@login_required(login_url="/login/")
 def edit_question(request, question_id):
     """Редактирование существующего вопроса"""
     question = get_object_or_404(Question, id=question_id)
@@ -49,6 +52,10 @@ def question_list(request):
     tags_selected = request.GET.getlist("tags")
     questions = Question.objects.order_by("-created_at")
     show_no_tags = request.GET.get("no_tags")
+    show_only_mine = request.GET.get("my_questions") == "1"
+    
+    if request.user.is_authenticated and show_only_mine:
+        questions = questions.filter(author=request.user)
 
     if show_no_tags:
         questions = questions.filter(tags__isnull=True)
@@ -66,6 +73,7 @@ def question_list(request):
             "tags": tags,
             "tags_selected": list(map(int, tags_selected)),
             "show_no_tags": show_no_tags,
+            "show_only_mine": show_only_mine,
         },
     )
 
@@ -79,6 +87,7 @@ def question_detail(request, question_id):
     )
 
 
+@login_required(login_url="/login/")
 def add_answer(request, question_id):
     """Форма для добавления ответа к вопросу"""
     question = get_object_or_404(Question, id=question_id)
@@ -86,6 +95,7 @@ def add_answer(request, question_id):
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save(commit=False)
+            question.author = request.user
             answer.question = question
             answer.save()
             return redirect("question_detail", question_id=question.id)
@@ -100,6 +110,7 @@ def tag_list(request):
     return render(request, "tag_list.html", {"tags": tags})
 
 
+@login_required(login_url="/login/")
 def add_tag(request):
     """Создание нового тега"""
     if request.method == "POST":
@@ -112,6 +123,7 @@ def add_tag(request):
     return render(request, "add_tag.html", {"form": form})
 
 
+@login_required(login_url="/login/")
 def edit_tag(request, tag_id):
     """Редактирование тега"""
     tag = get_object_or_404(Tag, id=tag_id)
@@ -125,6 +137,7 @@ def edit_tag(request, tag_id):
     return render(request, "edit_tag.html", {"form": form, "tag": tag})
 
 
+@login_required(login_url="/login/")
 def delete_tag(request, tag_id):
     """Удаление тега"""
     tag = get_object_or_404(Tag, id=tag_id)
