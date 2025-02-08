@@ -44,17 +44,31 @@ def edit_question(request, question_id):
     return render(request, "edit_question.html", {"form": form, "question": question})
 
 
+def get_descendant_tags(tag):
+    """Рекурсивно находит все потомки тега"""
+    descendants = set()
+    children = tag.children.all()
+    for child in children:
+        descendants.add(child)
+        descendants.update(get_descendant_tags(child))  # Рекурсивно добавляем потомков
+    return descendants
+
 def question_list(request):
     """Выводит список вопросов с фильтрацией по тегам"""
-    tags_selected = request.GET.getlist("tags")
+    selected_tags = request.GET.getlist("tags")
     questions = Question.objects.order_by("-created_at")
     show_no_tags = request.GET.get("no_tags")
 
     if show_no_tags:
         questions = questions.filter(tags__isnull=True)
-    elif tags_selected:
-        for tag_id in tags_selected:
-            questions = questions.filter(tags__id=tag_id)
+    elif selected_tags:
+        selected_tags = Tag.objects.filter(id__in=selected_tags)
+        expanded_tags = set(selected_tags)
+        
+        for tag in selected_tags:
+            expanded_tags.update(get_descendant_tags(tag))
+        
+        questions = questions.filter(tags__in=expanded_tags).distinct()
 
     tags = Tag.objects.all()
 
@@ -64,7 +78,7 @@ def question_list(request):
         {
             "questions": questions,
             "tags": tags,
-            "tags_selected": list(map(int, tags_selected)),
+            "tags_selected":[tag.id for tag in selected_tags],
             "show_no_tags": show_no_tags,
         },
     )

@@ -3,6 +3,9 @@ from django.db import models
 
 class Tag(models.Model):
     name = models.CharField("Название", max_length=50, unique=True)
+    parents = models.ManyToManyField(
+        "self", blank=True, related_name="children", symmetrical=False
+    )
 
     def __str__(self):
         return self.name

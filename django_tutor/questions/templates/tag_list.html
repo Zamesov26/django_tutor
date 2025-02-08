@@ -5,12 +5,20 @@
     <title>Список тегов</title>
 </head>
 <body>
-<h1>Теги</h1>
+<h2>Список тегов</h2>
 <a href="{% url 'add_tag' %}">➕ Добавить тег</a>
+
 <ul>
     {% for tag in tags %}
     <li>
         {{ tag.name }}
+        {% if tag.parents.all %}
+        (Родители:
+        {% for parent in tag.parents.all %}
+        {{ parent.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        )
+        {% endif %}
         <a href="{% url 'edit_tag' tag.id %}">✏️</a>
         <a href="{% url 'delete_tag' tag.id %}">🗑</a>
     </li>
@@ -18,5 +26,6 @@
     <li>Тегов пока нет.</li>
     {% endfor %}
 </ul>
+
 </body>
 </html>
