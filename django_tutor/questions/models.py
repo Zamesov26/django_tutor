@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -16,6 +17,7 @@ class Question(models.Model):
     source = models.CharField("Источник", max_length=128, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="questions")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="questions")
 
     def __str__(self):
         return self.text[:50]
@@ -37,6 +39,7 @@ class Answer(models.Model):
         "Уверенность", choices=CONFIDENCE_LEVELS, default=1
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")  # Автор ответа
 
     def __str__(self):
         return f"Ответ на: {self.question.text[:30]}"
