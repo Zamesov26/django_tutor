@@ -1,8 +1,5 @@
-from django.db import models
-
 from django_tutor.questions.models import Question, Tag
-from django_tutor.questions.repositories import TagRepository, \
-    QuestionRepository
+from django_tutor.questions.repositories import TagRepository
 
 
 def get_sets_tags_by_parent_tags(selected_tags: list[str]) -> list[set[Tag]]:
@@ -13,7 +10,7 @@ def get_sets_tags_by_parent_tags(selected_tags: list[str]) -> list[set[Tag]]:
 
 def get_questions_by_tag_sets(tag_sets):
     if not tag_sets:
-        return Question.objects.none()  # Если список пуст, вопросов нет
+        return Question.objects.none()
     
     # TODO: это условие нужно переделать(по хорошему одним запросом)
     questions = set(Question.objects.filter(tags__in=tag_sets.pop()).all())
