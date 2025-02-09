@@ -1,11 +1,9 @@
 
 from django.contrib.auth.decorators import login_required
-from django.core.checks import Tags
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AnswerForm, QuestionForm, TagForm
 from .models import Question, Tag
-from .repositories import TagRepository
 from .services import get_sets_tags_by_parent_tags, get_questions_by_tag_sets
 
 
