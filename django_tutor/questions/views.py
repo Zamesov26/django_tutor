@@ -1,9 +1,11 @@
 
 from django.contrib.auth.decorators import login_required
+from django.core.checks import Tags
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AnswerForm, QuestionForm, TagForm
 from .models import Question, Tag
+from .repositories import TagRepository
 from .services import get_sets_tags_by_parent_tags, get_questions_by_tag_sets
 
 
@@ -64,8 +66,12 @@ def question_list(request):
         questions = questions.filter(tags__isnull=True)
     elif selected_tags:
         questions = get_questions_by_tag_sets(get_sets_tags_by_parent_tags(selected_tags))
-
-    tags = Tag.objects.all()
+    
+    # TODO надо еще подумать над этим возможно можно лучше.
+    tags = set(Tag.objects.filter(id__in=selected_tags).all())
+    for question in questions:
+        tags.update(question.tags.all())
+        
     return render(
         request,
         "question_list.html",
