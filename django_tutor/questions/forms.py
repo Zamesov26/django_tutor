@@ -61,9 +61,15 @@ class AnswerForm(forms.ModelForm):
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = ["name"]
+        fields = ["name", "parents"]
         widgets = {
             "name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Название тега"}
             ),
         }
+        
+    parents = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        required=False,
+        widget=forms.SelectMultiple(attrs={"class": "form-control"})
+    )
