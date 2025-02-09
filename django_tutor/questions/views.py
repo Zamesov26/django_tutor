@@ -1,8 +1,11 @@
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import AnswerForm, QuestionForm, TagForm
 from .models import Question, Tag
+from .services import get_sets_tags_by_parent_tags, get_questions_by_tag_sets
+
 
 @login_required(login_url="/login/")
 def add_question(request):
@@ -47,15 +50,6 @@ def edit_question(request, question_id):
     return render(request, "edit_question.html", {"form": form, "question": question})
 
 
-def get_descendant_tags(tag):
-    """Рекурсивно находит все потомки тега"""
-    descendants = set()
-    children = tag.children.all()
-    for child in children:
-        descendants.add(child)
-        descendants.update(get_descendant_tags(child))  # Рекурсивно добавляем потомков
-    return descendants
-
 def question_list(request):
     """Выводит список вопросов с фильтрацией по тегам"""
     selected_tags = request.GET.getlist("tags")
@@ -69,23 +63,16 @@ def question_list(request):
     if show_no_tags:
         questions = questions.filter(tags__isnull=True)
     elif selected_tags:
-        selected_tags = Tag.objects.filter(id__in=selected_tags)
-        expanded_tags = set(selected_tags)
-        
-        for tag in selected_tags:
-            expanded_tags.update(get_descendant_tags(tag))
-        
-        questions = questions.filter(tags__in=expanded_tags).distinct()
+        questions = get_questions_by_tag_sets(get_sets_tags_by_parent_tags(selected_tags))
 
     tags = Tag.objects.all()
-
     return render(
         request,
         "question_list.html",
         {
             "questions": questions,
             "tags": tags,
-            "tags_selected":[tag.id for tag in selected_tags],
+            "tags_selected": list(map(int, selected_tags)),
             "show_no_tags": show_no_tags,
             "show_only_mine": show_only_mine,
         },
