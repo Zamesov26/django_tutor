@@ -95,13 +95,6 @@ form button:hover {
     background-color: #0056b3;
 }
 
-
-/* questions list */
-
-.questions {
-
-}
-
 .questions__item {
   padding:0;
   margin:0;
@@ -112,23 +105,6 @@ form button:hover {
 
 .actions {
   padding-left: 15px;
-}
-
-.fancy {
-
-}
-/* tags list */
-
-.tags {
-
-}
-
-.tags__item {
-
-}
-
-.tags__actions {
-
 }
 
 .tags__actions a {
