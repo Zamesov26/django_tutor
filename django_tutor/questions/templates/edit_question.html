@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактировать вопрос</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block title %}	Редактировать вопрос{% endblock %}
+
+{% block content %}
+
     <h1>Редактировать вопрос</h1>
     <form method="post">
         {% csrf_token %}
@@ -12,5 +11,4 @@
         <button type="submit">Сохранить изменения</button>
     </form>
     <a href="{% url 'question_list' %}">Отмена</a>
-</body>
-</html>
+{% endblock %}

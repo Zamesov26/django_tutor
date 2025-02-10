@@ -8,7 +8,7 @@ class TagRepository:
         children = Tag.objects.filter(parents=tag)
         if not children:
             return {tag}
-        
+
         descendants = set(children)
         for child in children:
             if child:

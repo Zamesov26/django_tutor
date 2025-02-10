@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<header class="fancy-header">
+    <nav class="main-menu">
+        <ul class="main-menu__list main-menu__list--left">
+            <li class="main-menu__item"><a href="/" class="main-menu__link">Home</a></li>
+            <li class="main-menu__item"><a href="{% url 'question_list' %}" class="main-menu__link">Вопросы</a></li>
+            <li class="main-menu__item"><a href="{% url 'tag_list' %}" class="main-menu__link">Тэги</a></li>
+        </ul>
+        <ul class="main-menu__list main-menu__list--right">
+            {% if user.is_authenticated %}
+            <li class="main-menu__item"><a href="{% url 'profile' %}" class="main-menu__link">Профиль</a></li>
+            <li class="main-menu__item">
+                <a href="#" class="main-menu__link main-menu__logout" id="logout-link">Выйти</a>
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </li>
+            {% else %}
+            <li class="main-menu__item"><a href="{% url 'login' %}" class="main-menu__link">Войти</a></li>
+            <li class="main-menu__item"><a href="{% url 'register' %}" class="main-menu__link">Регистрация</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+     const logoutLink = document.getElementById("logout-link");
+     const logoutForm = document.getElementById("logout-form");
+
+     if (logoutLink && logoutForm) {
+         logoutLink.addEventListener("click", function (event) {
+             event.preventDefault(); // Предотвращаем переход по ссылке
+             logoutForm.submit(); // Отправляем POST-запрос
+         });
+     }
+ });
+
+</script>
+</body>
+</html>

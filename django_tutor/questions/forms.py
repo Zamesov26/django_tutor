@@ -1,5 +1,6 @@
 from django import forms
-from .models import Question, Answer, Tag
+
+from .models import Answer, Question, Tag
 
 
 class QuestionForm(forms.ModelForm):
@@ -67,9 +68,9 @@ class TagForm(forms.ModelForm):
                 attrs={"class": "form-control", "placeholder": "Название тега"}
             ),
         }
-        
+
     parents = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
         required=False,
-        widget=forms.SelectMultiple(attrs={"class": "form-control"})
+        widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )

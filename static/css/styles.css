@@ -1,0 +1,231 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    padding-left: 0;
+    box-sizing: border-box;
+}
+
+main {
+    width: 800px;
+    margin: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Светлый фон */
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Синий цвет ссылок */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1,
+h2 {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* Стиль списка вопросов */
+ul li a {
+    display: block;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+ul li a:hover {
+    background-color: #eaeaea;
+}
+
+/* Фильтры */
+form, .fancy{
+    display: block;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+form h3 {
+    margin-bottom: 10px;
+}
+
+form label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+form input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.questions__item {
+  padding:0;
+  margin:0;
+}
+.questions__item a {
+  padding: 0 5px 0 5px;
+}
+
+.actions {
+  padding-left: 15px;
+}
+
+.tags__actions a {
+  display:  inline-block;
+}
+
+.fancy-header {
+    background-color: #333;
+}
+/* Блок */
+.main-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    width: 800px;
+    margin: auto;
+}
+
+/* Элемент - список */
+.main-menu__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Элементы слева и справа */
+.main-me    list--left {
+    margin-right: auto;
+}
+
+.main-menu__list--right {
+    margin-left: auto;
+}
+
+/* Элемент - пункт меню */
+.main-menu__item {
+}
+
+/* Элемент - ссылка */
+.main-menu__link {
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Ховер эффект */
+.main-menu__link:hover {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.main-menu__list--left .main-menu__item {
+    margin-right: 10px;
+}
+
+.main-menu__list--right .main-menu__item {
+    margin-left: 10px;
+}
+
+.main-menu__logout-form {
+    display: inline;
+}
+
+.main-menu__logout-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: inherit;
+}
+
+.main-menu__logout-btn:hover {
+    color: #ffcc00;
+}
+
+/* Контейнер вопроса */
+.questions__item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Ссылка на вопрос */
+.questions__item a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+.questions__item a:hover {
+    color: #0056b3;
+}
+
+/* Контейнер тегов */
+.questions__item p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Отступы между тегами */
+    margin-top: 5px;
+}
+
+/* Общий стиль тегов */
+.questions__item span {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+span.tag--empty {
+    background-color: #c7c7c3;
+    color: #666;
+    font-style: italic;
+}

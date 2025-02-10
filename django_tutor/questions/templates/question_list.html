@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Список вопросов</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block title %}Список вопросов{% endblock %}
+
+{% block content %}
 <h1>Список вопросов</h1>
+<div class="actions">
 {% if user.is_authenticated %}
 <a href="{% url 'add_question' %}{% if tags_selected %}?tags={{ tags_selected|join:" ," }}{% endif %}"">
 ➕ Добавить вопрос
@@ -13,10 +12,11 @@
 {% else %}
 <p><a href="{% url 'login' %}">Войдите</a>, чтобы добавить вопрос.</p>
 {% endif %}
+</div>
 
 <!-- Форма фильтрации -->
 <form method="get">
-    <h3>Фильтр по тегам:</h3>
+    <h4>Фильтр по тегам:</h4>
     {% for tag in tags %}
     <label>
         <input type="checkbox" name="tags" value="{{ tag.id }}"
@@ -43,21 +43,20 @@
 
 <hr>
 
-<ul>
+<ul class="questions">
     {% for question in questions %}
-    <li>
+    <li class="questions__item">
         <a href="{% url 'question_detail' question.id %}">{{ question.text }}</a>
         <p>
             {% for tag in question.tags.all %}
-            <span>{{ tag.name }}</span>
+            <span class="tag">{{ tag.name }}</span>
             {% empty %}
-            Нет тегов
+            <span class="tag tag--empty">Нет тегов</span>
             {% endfor %}
         </p>
     </li>
     {% empty %}
-    <li>Пока вопросов нет</li>
+    <li class="questions__item">Пока вопросов нет</li>
     {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}

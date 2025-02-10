@@ -1,8 +1,7 @@
 import functools
 import os
-from random import randint
 
-from celery import shared_task, current_task
+from celery import current_task, shared_task
 from django.db import models
 
 from django_tutor.questions.models import Question
@@ -28,7 +27,7 @@ def retry_on_failure(model):
                 )
             try:
                 res = func(*args, **kwargs)
-            except Exception as e:
+            except Exception:
                 model.objects.filter(id=id_).update(attempts=models.F("attempts") + 1)
                 raise
             return res
@@ -45,7 +44,7 @@ def play_sound_task(id_):
     os.system(
         "paplay /usr/share/sounds/freedesktop/stereo/message.oga"
     )  # Воспроизводит звук в Ubuntu
-    n = randint(1, 2)
+    # n = randint(1, 2)
     # if n == 1:
     current_task.apply_async(args=[id_], countdown=5)
     # raise ValueError
