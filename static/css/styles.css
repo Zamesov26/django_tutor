@@ -1,0 +1,169 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Светлый фон */
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Синий цвет ссылок */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1,
+h2 {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Стиль списка вопросов */
+ul li a {
+    display: block;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+ul li a:hover {
+    background-color: #eaeaea;
+}
+
+ul li p span {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Фильтры */
+form, .fancy{
+    display: block;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+form h3 {
+    margin-bottom: 10px;
+}
+
+form label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+form input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* questions list */
+
+.questions {
+
+}
+
+.questions__item {
+  padding:0;
+  margin:0;
+}
+.questions__item a {
+  padding: 0 5px 0 5px;
+}
+
+.actions {
+  padding-left: 15px;
+}
+
+.fancy {
+
+}
+/* tags list */
+
+.tags {
+
+}
+
+.tags__item {
+
+}
+
+.tags__actions {
+
+}
+
+.tags__actions a {
+  display:  inline-block;
+}
+
+.fancy-header {
+    background: linear-gradient(90deg, #1e3c72, #2a5298); /* Dark blue gradient */
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fancy-header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.fancy-header nav ul li {
+    margin: 0 15px;
+}
+
+.fancy-header nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.fancy-header nav ul li a:hover {
+    color: #add8e6; /* Light blue hover effect */
+}

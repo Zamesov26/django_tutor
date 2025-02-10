@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактировать тег</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block title %}Редактировать тег{% endblock %}
+
+{% block content %}
 <h1>Редактировать тег</h1>
 <form method="post">
     {% csrf_token %}
@@ -12,5 +10,4 @@
     <button type="submit">Сохранить</button>
 </form>
 <a href="{% url 'tag_list' %}">Назад</a>
-</body>
-</html>
+{% endblock %}

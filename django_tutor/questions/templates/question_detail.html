@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Вопрос</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block title %} Вопрос {% endblock %}
+
+{% block content %}
 <h1>{{ question.text }}</h1>
+<div class="fancy">
 <p>Дата создания: {{ question.created_at|date:"d.m.Y H:i" }}</p>
 
 <h2>Ответы:</h2>
@@ -30,10 +29,10 @@
         <li>Нет тегов</li>
     {% endfor %}
 </ul>
+</div>
 
 <a href="{% url 'edit_question' question.id %}">✏️ Редактировать</a>
 <a href="{% url 'add_answer' question.id %}">Добавить ответ</a>
 <br>
 <a href="{% url 'question_list' %}">Назад к списку</a>
-</body>
-</html>
+{% endblock %}
