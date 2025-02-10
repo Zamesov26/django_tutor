@@ -1,10 +1,22 @@
-[tool.black]
-line-length = 88  # Длина строки (по умолчанию 88)
-target-version = ['py38', 'py39', 'py310']  # Поддерживаемые версии Python
-include = '\.pyi?$'  # Форматируем только Python-файлы
-exclude = '''
-(
-    /\..+  # Игнорируем ВСЕ файлы и папки, начинающиеся с точки (скрытые)
-    | /migrations/  # Игнорируем папку миграций
-)
-'''
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",   # Ошибки Flake8
+    "I",             # Импорты (Isort)
+    "B",             # Ошибки безопасности (flake8-bugbear)
+    "DJ",            # Django-специфичные правила
+    "C90",           # Pylint (частично)
+]
+
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"*/migrations/*" = ["E402", "F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"

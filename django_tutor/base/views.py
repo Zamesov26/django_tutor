@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.urls import get_resolver
 
 
 def home(request):

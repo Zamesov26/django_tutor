@@ -1,15 +1,15 @@
 from django.urls import path
 
 from .views import (
-    question_list,
-    question_detail,
     add_answer,
     add_question,
-    edit_tag,
-    delete_tag,
-    tag_list,
     add_tag,
+    delete_tag,
     edit_question,
+    edit_tag,
+    question_detail,
+    question_list,
+    tag_list,
 )
 
 urlpatterns = [

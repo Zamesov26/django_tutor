@@ -3,9 +3,7 @@ from django.db import models
 
 
 class Tag(models.Model):
-    name = models.CharField(
-        "Название", max_length=50, unique=True, db_index=True
-    )
+    name = models.CharField("Название", max_length=50, unique=True, db_index=True)
     parents = models.ManyToManyField(
         "self", blank=True, related_name="children", symmetrical=False
     )
@@ -16,7 +14,7 @@ class Tag(models.Model):
 
 class Question(models.Model):
     text = models.TextField("Текст вопроса")
-    source = models.CharField("Источник", max_length=128, blank=True, null=True)
+    source = models.CharField("Источник", max_length=128, default="", db_default="")
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="questions")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="questions")
@@ -35,13 +33,15 @@ class Answer(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name="answers"
     )
-    text = models.TextField("Текст ответа", blank=True, null=True)
-    source = models.CharField("Источник", max_length=128, blank=True, null=True)
+    text = models.TextField("Текст ответа", default="", db_default="")
+    source = models.CharField("Источник", max_length=128, default="", db_default="")
     confidence = models.IntegerField(
         "Уверенность", choices=CONFIDENCE_LEVELS, default=1
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")  # Автор ответа
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="answers"
+    )  # Автор ответа
 
     def __str__(self):
         return f"Ответ на: {self.question.text[:30]}"

@@ -1,10 +1,9 @@
-
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import AnswerForm, QuestionForm, TagForm
 from .models import Question, Tag
-from .services import get_sets_tags_by_parent_tags, get_questions_by_tag_sets
+from .services import get_questions_by_tag_sets, get_sets_tags_by_parent_tags
 
 
 @login_required(login_url="/login/")
@@ -56,20 +55,22 @@ def question_list(request):
     questions = Question.objects.order_by("-created_at")
     show_no_tags = request.GET.get("no_tags")
     show_only_mine = request.GET.get("my_questions") == "1"
-    
+
     if request.user.is_authenticated and show_only_mine:
         questions = questions.filter(author=request.user)
 
     if show_no_tags:
         questions = questions.filter(tags__isnull=True)
     elif selected_tags:
-        questions = get_questions_by_tag_sets(get_sets_tags_by_parent_tags(selected_tags))
-    
+        questions = get_questions_by_tag_sets(
+            get_sets_tags_by_parent_tags(selected_tags)
+        )
+
     # TODO надо еще подумать над этим возможно можно лучше.
     tags = set(Tag.objects.filter(id__in=selected_tags).all())
     for question in questions:
         tags.update(question.tags.all())
-        
+
     return render(
         request,
         "question_list.html",

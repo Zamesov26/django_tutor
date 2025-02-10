@@ -49,9 +49,9 @@
         <a href="{% url 'question_detail' question.id %}">{{ question.text }}</a>
         <p>
             {% for tag in question.tags.all %}
-            <span>{{ tag.name }}</span>
+            <span class="tag">{{ tag.name }}</span>
             {% empty %}
-            Нет тегов
+            <span class="tag tag--empty">Нет тегов</span>
             {% endfor %}
         </p>
     </li>

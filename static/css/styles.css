@@ -2,7 +2,13 @@
 * {
     margin: 0;
     padding: 0;
+    padding-left: 0;
     box-sizing: border-box;
+}
+
+main {
+    width: 800px;
+    margin: auto;
 }
 
 body {
@@ -40,14 +46,10 @@ ul {
     list-style-type: none;
 }
 
-li {
-    margin-bottom: 10px;
-}
-
 /* Стиль списка вопросов */
 ul li a {
     display: block;
-    padding: 15px;
+    padding: 5px;
     background-color: #fff;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
@@ -55,11 +57,6 @@ ul li a {
 
 ul li a:hover {
     background-color: #eaeaea;
-}
-
-ul li p span {
-    color: #999;
-    font-size: 14px;
 }
 
 /* Фильтры */
@@ -139,31 +136,120 @@ form button:hover {
 }
 
 .fancy-header {
-    background: linear-gradient(90deg, #1e3c72, #2a5298); /* Dark blue gradient */
-    padding: 20px;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #333;
 }
-
-.fancy-header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* Блок */
+.main-menu {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    width: 800px;
+    margin: auto;
 }
 
-.fancy-header nav ul li {
-    margin: 0 15px;
+/* Элемент - список */
+.main-menu__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.fancy-header nav ul li a {
+/* Элементы слева и справа */
+.main-me    list--left {
+    margin-right: auto;
+}
+
+.main-menu__list--right {
+    margin-left: auto;
+}
+
+/* Элемент - пункт меню */
+.main-menu__item {
+}
+
+/* Элемент - ссылка */
+.main-menu__link {
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Ховер эффект */
+.main-menu__link:hover {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.main-menu__list--left .main-menu__item {
+    margin-right: 10px;
+}
+
+.main-menu__list--right .main-menu__item {
+    margin-left: 10px;
+}
+
+.main-menu__logout-form {
+    display: inline;
+}
+
+.main-menu__logout-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: inherit;
+}
+
+.main-menu__logout-btn:hover {
+    color: #ffcc00;
+}
+
+/* Контейнер вопроса */
+.questions__item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Ссылка на вопрос */
+.questions__item a {
     font-size: 18px;
     font-weight: bold;
-    transition: color 0.3s ease;
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
 }
 
-.fancy-header nav ul li a:hover {
-    color: #add8e6; /* Light blue hover effect */
+.questions__item a:hover {
+    color: #0056b3;
+}
+
+/* Контейнер тегов */
+.questions__item p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Отступы между тегами */
+    margin-top: 5px;
+}
+
+/* Общий стиль тегов */
+.questions__item span {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+span.tag--empty {
+    background-color: #c7c7c3;
+    color: #666;
+    font-style: italic;
 }
