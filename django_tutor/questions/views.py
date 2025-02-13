@@ -96,6 +96,7 @@ def question_detail(request, question_id):
 @login_required(login_url="/login/")
 def add_answer(request, question_id):
     """Форма для добавления ответа к вопросу"""
+
     question = get_object_or_404(Question, id=question_id)
     if request.method == "POST":
         form = AnswerForm(request.POST)
