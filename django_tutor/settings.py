@@ -169,3 +169,8 @@ load_dotenv()
 SUPERUSER_USERNAME = os.getenv("DJANGO_SUPERUSER_USERNAME")
 SUPERUSER_EMAIL = os.getenv("DJANGO_SUPERUSER_EMAIL")
 SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD")
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://djangotutor.ru",
+    "https://www.djangotutor.ru",
+]
