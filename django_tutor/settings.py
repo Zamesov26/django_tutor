@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -161,3 +163,9 @@ MIDDLEWARE.insert(0, "axes.middleware.AxesMiddleware")
 AXES_FAILURE_LIMIT = 5  # 5 попыток до блокировки
 AXES_COOLOFF_TIME = 1  # Блокировка на 1 час
 AXES_RESET_ON_SUCCESS = True  # Сбрасывать счетчик после успешного входа
+
+load_dotenv()
+# Используем переменные для суперпользователя
+SUPERUSER_USERNAME = os.getenv("DJANGO_SUPERUSER_USERNAME")
+SUPERUSER_EMAIL = os.getenv("DJANGO_SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD")
