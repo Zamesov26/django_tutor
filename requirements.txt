@@ -2,3 +2,4 @@ django==5.1.6
 celery==5.4.0
 gunicorn==23.0.0
 psycopg2-binary==2.9.10
+django-axes==7.0.2

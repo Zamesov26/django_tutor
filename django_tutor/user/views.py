@@ -1,13 +1,17 @@
+from axes.decorators import axes_dispatch
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 
 from .forms import RegisterForm
 
 
 def register(request):
     """Регистрация нового пользователя"""
+    # пока не даем регистрацию
+    return redirect("/")
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -27,7 +31,8 @@ def profile(request):
 
 class CustomLoginView(LoginView):
     """Перенаправляет авторизованных пользователей на главную"""
-
+    
+    @method_decorator(axes_dispatch)
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect("home")  # Перенаправляем на главную

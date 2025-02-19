@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-1%^r3e4-xnyibo1mwtah^-5t0uj$4arg=q-2l^+ysvzz&a9dkj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["djangotutor.ru", "www.djangotutor.ru"]
+ALLOWED_HOSTS = ["djangotutor.ru", "www.djangotutor.ru", "127.0.0.1"]
 
 DATABASES = {
     "default": {
@@ -148,3 +148,16 @@ CELERY_TASK_SERIALIZER = "json"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",  # Добавляем бэкенд для блокировки
+    "django.contrib.auth.backends.ModelBackend",  # Обычный Django бэкенд
+]
+
+INSTALLED_APPS += ["axes"]
+
+MIDDLEWARE.insert(0, "axes.middleware.AxesMiddleware")
+
+AXES_FAILURE_LIMIT = 5  # 5 попыток до блокировки
+AXES_COOLOFF_TIME = 1  # Блокировка на 1 час
+AXES_RESET_ON_SUCCESS = True  # Сбрасывать счетчик после успешного входа
