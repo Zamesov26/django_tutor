@@ -17,10 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("django_tutor.user.urls")),
     path("", include("django_tutor.base.urls")),
     path("questions/", include("django_tutor.questions.urls")),
-]
+    path('videos/', include('video_downloader.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

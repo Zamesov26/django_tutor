@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Доступные видео</title>
+</head>
+<body>
+    <h1>Доступные для скачивания видео</h1>
+
+    {% if videos %}
+        <ul>
+        {% for video in videos %}
+            <li>
+                {{ video }}
+                <a href="{% url 'download_video' video %}" download>Скачать</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных видео</p>
+    {% endif %}
+</body>
+</html>

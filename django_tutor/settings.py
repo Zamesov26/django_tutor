@@ -54,7 +54,12 @@ INSTALLED_APPS = [
     "django_tutor.user",
     "django_tutor.base",
     "django_tutor.questions",
+    
+    "video_downloader"
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
